@@ -1,0 +1,5 @@
+/target
+.env
+*.mmdb
+*.mmdb.tmp
+deploy.sh

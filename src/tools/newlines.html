@@ -1,0 +1,51 @@
+<label for="input">Input:</label><br>
+<textarea id="input" rows="10"></textarea><br>
+<label><input type="checkbox" id="keep_double"> Keep paragraph breaks (double newlines)</label><br>
+<label><input type="checkbox" id="join_space" checked> Replace with space</label><br>
+<button type="button" id="strip">Strip</button>
+<button type="button" id="copy">Copy</button>
+<p><label for="output">Output:</label><br>
+<textarea id="output" rows="10" readonly></textarea></p>
+<script>
+(() => {
+  const input = document.getElementById("input");
+  const output = document.getElementById("output");
+  const keepParagraphs = document.getElementById("keep_double");
+  const replaceWithSpace = document.getElementById("join_space");
+
+  function stripLineBreaks(text, joinWithSpace) {
+    if (!joinWithSpace) return text.replaceAll("\n", "");
+    const lines = text.split("\n");
+    const last = lines.length - 1;
+    return lines.map((line, index) => {
+      let start = 0;
+      let end = line.length;
+      if (index > 0) {
+        while (start < end && (line[start] === " " || line[start] === "\t")) start++;
+      }
+      if (index < last) {
+        while (end > start && (line[end - 1] === " " || line[end - 1] === "\t")) end--;
+      }
+      return line.slice(start, end);
+    }).filter(Boolean).join(" ");
+  }
+
+  function strip() {
+    const text = input.value.replace(/\r\n?/g, "\n");
+    const paragraphs = keepParagraphs.checked ? text.split(/\n(?:[^\S\n]*\n)+/) : [text];
+    output.value = paragraphs
+      .map(paragraph => stripLineBreaks(paragraph, replaceWithSpace.checked))
+      .join("\n\n");
+  }
+
+  input.addEventListener("input", strip);
+  keepParagraphs.addEventListener("change", strip);
+  replaceWithSpace.addEventListener("change", strip);
+  document.getElementById("strip").addEventListener("click", strip);
+  document.getElementById("copy").addEventListener("click", () => {
+    output.select();
+    if (navigator.clipboard) navigator.clipboard.writeText(output.value);
+  });
+  strip();
+})();
+</script>

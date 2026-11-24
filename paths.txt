@@ -1,0 +1,24 @@
+/trace     follow a URL's redirect chain (up to 15 hops) and strip tracking parameters
+/ports     test whether a TCP port is open on your current IP
+/hook      generate a temporary URL to watch incoming HTTP requests live (nothing is stored)
+/httpbin   test HTTP failures and responses
+/newlines  remove all line breaks from text, or collapse single breaks while keeping paragraphs
+/whois     look up public registration records for a domain or IP address
+
+the descriptions on the tool pages themselves
+
+/trace:
+
+Drop "Server-side headless" and "SSRF-hardened". Users don't need to know your security architecture in the subtitle—just state what the tool does: Follows up to 15 redirects and strips UTM/click-ID parameters.   Button: Change Inspect to Trace so it matches the route.
+
+/ports (currently Self-Only Port & Firewall Tester):
+
+Tighten the IP line: Change Target IP is locked to your request IP: 127.0.0.1 to Target: 127.0.0.1 (caller IP only).   Button: Change Test Port to Check. The TCP Port (1–65535): label is already great.
+
+/hook (currently Ephemeral Webhook Catcher):
+
+Kill the metaphor: "evaporate from memory" is too poetic for brutalism. Swap that line to: In-memory only. Requests stream via SSE and are discarded when you close this tab.   Control consistency: Right now Clear is a button and New ID is a link. Make both <button> elements so the toolbar feels deliberate instead of accidental.   Keep the curl example: That's the best part of this page.
+
+/httpbin (currently Fast httpbin (Failure Simulator))Already 90% there: The endpoint list paired with raw curl commands is the strongest page in the set.   One tiny tweak: Change trickle bytes steadily over duration to stream bytes over duration to keep the tone flat and technical.
+
+/newlines (currently Newline Remover)   Drop the placeholder: Paste text here... is redundant when Input text: is right above the box. Shorten the labels to Input: and Output:.   Tighten the checkboxes: Change Only remove single newlines (keep double newlines intact) to Keep paragraph breaks (double newlines), and Replace removed newlines with a space to Replace with space.   Buttons: Shorten Remove Newlines and Copy Output to Strip and Copy.
